@@ -8,6 +8,12 @@
   ],
   "types": "dist/types/index.d.ts",
   "module": "dist/esm/index.js",
+  "exports": {
+    ".": {
+      "import": "./dist/esm/index.js",
+      "types": "./dist/types/index.d.ts"
+    }
+  },
   "keywords": [],
   "author": {
     "name": "Evgeny Kalkutin",
