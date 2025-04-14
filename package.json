@@ -1,0 +1,12 @@
+{
+  "name": "toolstack",
+  "version": "1.0.0",
+  "description": "A toolkit for faster and safer development (logging, errors, HTTP client, mocks, and templates)",
+  "keywords": [],
+  "author": {
+    "name": "Evgeny Kalkutin",
+    "email": "evgheni.calcutin@gmail.com",
+    "url": "https://kalkutin.dev/"
+  },
+  "license": "ISC"
+}
