@@ -2,11 +2,27 @@
   "name": "toolstack",
   "version": "1.0.0",
   "description": "A toolkit for faster and safer development (logging, errors, HTTP client, mocks, and templates)",
+  "type": "module",
+  "files": [
+    "dist"
+  ],
+  "types": "dist/types/index.d.ts",
+  "module": "dist/esm/index.js",
   "keywords": [],
   "author": {
     "name": "Evgeny Kalkutin",
     "email": "evgheni.calcutin@gmail.com",
     "url": "https://kalkutin.dev/"
   },
-  "license": "ISC"
+  "scripts": {
+    "build": "npm run build:esm && npm run build:types",
+    "build:esm": "tsc -p tsconfig.json",
+    "build:types": "tsc -p tsconfig.types.json",
+    "release": "npm run build && npm version patch && npm publish && git push --follow-tags"
+  },
+  "license": "ISC",
+  "devDependencies": {
+    "prettier": "^3.5.3",
+    "typescript": "^5.8.3"
+  }
 }
