@@ -1,3 +1,1 @@
-export const testFn = (arg: string): void => {
-  console.log(`This is arg: ${arg}`);
-};
+export { BaseError } from './exceptions/index.js';

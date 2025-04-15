@@ -1,0 +1,1 @@
+export const DEFAULT_ERROR_CODE = 'UNKNOWN_ERROR';
