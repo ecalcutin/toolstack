@@ -1,6 +1,6 @@
-import type { BaseExceptionOptions } from './base.interface.js';
-import { DEFAULT_ERROR_CODE } from '../constants/error-codes.js';
-import { DEFAULT_ERROR_MESSAGE } from '../constants/error-messages.js';
+import type { BaseExceptionOptions } from './base.interface';
+import { DEFAULT_ERROR_CODE } from '../constants/error-codes';
+import { DEFAULT_ERROR_MESSAGE } from '../constants/error-messages';
 
 export class BaseException<
   ContextType = unknown,

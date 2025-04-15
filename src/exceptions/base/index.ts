@@ -1,2 +1,2 @@
-export { BaseException } from './base.exception.js';
-export type { BaseExceptionOptions } from './base.interface.js';
+export { BaseException } from './base.exception';
+export type { BaseExceptionOptions } from './base.interface';

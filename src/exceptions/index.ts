@@ -1,1 +1,1 @@
-export { BaseException } from './base/index.js';
+export { BaseException } from './base/index';
