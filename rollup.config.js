@@ -13,6 +13,7 @@ export default {
       dir: 'dist/cjs',
       format: 'cjs',
       preserveModules: true,
+      exports: 'auto',
     },
   ],
   plugins: [
