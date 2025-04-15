@@ -1,16 +1,21 @@
 {
   "name": "toolstack",
-  "version": "1.0.2",
+  "version": "1.0.3",
   "description": "A toolkit for faster and safer development (logging, errors, HTTP client, mocks, and templates)",
   "type": "module",
   "files": [
     "dist"
   ],
   "types": "dist/types/index.d.ts",
+  "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
   "exports": {
     ".": {
       "import": "./dist/esm/index.js",
+      "require": {
+        "types": "./dist/types/index.d.ts",
+        "default": "./dist/cjs/index.js"
+      },
       "types": "./dist/types/index.d.ts"
     }
   },
@@ -21,8 +26,9 @@
     "url": "https://kalkutin.dev/"
   },
   "scripts": {
-    "build": "npm run build:esm && npm run build:types",
+    "build": "npm run build:esm && npm run build:cjs && npm run build:types",
     "build:esm": "tsc -p tsconfig.json",
+    "build:cjs": "tsc -p tsconfig.cjs.json",
     "build:types": "tsc -p tsconfig.types.json",
     "release": "npm run build && npm version patch && npm publish && git push --follow-tags",
     "release:minor": "npm run build && npm version minor && npm publish && git push --follow-tags",
@@ -30,6 +36,7 @@
   },
   "license": "ISC",
   "devDependencies": {
+    "@types/node": "^22.14.1",
     "prettier": "^3.5.3",
     "typescript": "^5.8.3"
   }
