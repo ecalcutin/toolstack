@@ -11,11 +11,8 @@
   "module": "dist/esm/index.js",
   "exports": {
     ".": {
+      "require": "./dist/cjs/index.js",
       "import": "./dist/esm/index.js",
-      "require": {
-        "types": "./dist/types/index.d.ts",
-        "default": "./dist/cjs/index.js"
-      },
       "types": "./dist/types/index.d.ts"
     }
   },
@@ -26,18 +23,19 @@
     "url": "https://kalkutin.dev/"
   },
   "scripts": {
-    "build": "npm run build:esm && npm run build:cjs && npm run build:types",
-    "build:esm": "tsc -p tsconfig.json",
-    "build:cjs": "tsc -p tsconfig.cjs.json",
-    "build:types": "tsc -p tsconfig.types.json",
+    "build": "rollup -c && npm run build:types",
+    "build:types": "tsc -p tsconfig.declarations.json",
     "release": "npm run build && npm version patch && npm publish && git push --follow-tags",
     "release:minor": "npm run build && npm version minor && npm publish && git push --follow-tags",
     "release:major": "npm run build && npm version major && npm publish && git push --follow-tags"
   },
   "license": "ISC",
   "devDependencies": {
+    "@rollup/plugin-typescript": "^12.1.2",
     "@types/node": "^22.14.1",
     "prettier": "^3.5.3",
+    "rollup": "^4.40.0",
+    "tslib": "^2.8.1",
     "typescript": "^5.8.3"
   }
 }
