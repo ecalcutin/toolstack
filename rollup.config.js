@@ -1,4 +1,5 @@
 import typescript from '@rollup/plugin-typescript';
+import commonjs from '@rollup/plugin-commonjs';
 
 export default {
   input: 'src/index.ts',
@@ -17,6 +18,11 @@ export default {
   plugins: [
     typescript({
       tsconfig: './tsconfig.json',
+    }),
+    commonjs({
+      extensions: ['.js', '.ts'],
+      transformMixedEsModules: true,
+      requireReturnsDefault: 'auto',
     }),
   ],
 };
