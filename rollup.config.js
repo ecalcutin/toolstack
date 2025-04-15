@@ -1,5 +1,4 @@
 import typescript from '@rollup/plugin-typescript';
-import commonjs from '@rollup/plugin-commonjs';
 
 export default {
   input: 'src/index.ts',
@@ -7,23 +6,19 @@ export default {
     {
       dir: 'dist/esm',
       format: 'esm',
+      entryFileNames: '[name].mjs',
       preserveModules: true,
     },
     {
       dir: 'dist/cjs',
       format: 'cjs',
+      entryFileNames: '[name].cjs',
       preserveModules: true,
-      exports: 'auto',
     },
   ],
   plugins: [
     typescript({
       tsconfig: './tsconfig.json',
-    }),
-    commonjs({
-      extensions: ['.js', '.ts'],
-      transformMixedEsModules: true,
-      requireReturnsDefault: 'auto',
     }),
   ],
 };
