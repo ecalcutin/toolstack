@@ -1,1 +1,2 @@
-export { BaseException } from './exceptions/index';
+export { BaseException } from './exceptions';
+export { ConsoleLogger } from './logger';

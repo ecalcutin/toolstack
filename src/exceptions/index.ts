@@ -1,1 +1,1 @@
-export { BaseException } from './base/index';
+export { BaseException } from './base';
