@@ -12,6 +12,7 @@ export default {
       dir: 'dist/cjs',
       format: 'cjs',
       entryFileNames: '[name].cjs',
+      interop: 'auto',
     },
   ],
   plugins: [
