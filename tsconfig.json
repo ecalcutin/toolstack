@@ -2,10 +2,12 @@
   "compilerOptions": {
     "strict": true,
     "esModuleInterop": true,
+    "declaration": true,
     "target": "ESNext",
-    "module": "Preserve",
-    "moduleResolution": "bundler",
-    "rootDir": "src"
+    "module": "NodeNext",
+    "moduleResolution": "nodenext",
+    "rootDir": "src/",
+    "outDir": "dist/"
   },
   "include": ["src/**/*.ts"]
 }
