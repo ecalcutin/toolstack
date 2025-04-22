@@ -1,1 +1,1 @@
-export { ConsoleLogger } from './implementations/console';
+export { DevelopmentLogger, ProductionLogger } from './implementations';
