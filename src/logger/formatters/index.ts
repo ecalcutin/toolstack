@@ -1,1 +1,1 @@
-export { ColoredFormatter } from './colored';
+export { DevelopmentFormatter } from './development';

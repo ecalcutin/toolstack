@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { LogIcon } from '../../core/formatter.types';
+import { LogIcon } from './types/log-icon.enum';
 
 const formatStackLine = (line: string): { icon: string; text: string } => {
   let cleaned = line

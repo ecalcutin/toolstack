@@ -1,41 +1,27 @@
+import 'reflect-metadata';
 import { inject, injectable } from 'inversify';
-import { LogFormatter, Logger } from '../core';
-import { SYMBOLS, container } from '../di';
+
+import { SYMBOLS } from '../di/symbols';
 import { WinstonAdapter } from '../adapters';
-import { ColoredFormatter } from '../formatters';
+import { LogFormatter, Logger, LogContext } from '../core';
 
 @injectable()
-export class LoggerFacade extends Logger {
-  private readonly instance: Logger;
-  private readonly formatter: LogFormatter;
+export class LoggerFacade implements Logger {
+  private readonly implementation: Logger;
 
-  constructor(
-    @inject(SYMBOLS.Formatter) formatter: LogFormatter,
-    @inject(SYMBOLS.LoggerImplementation) implementation?: Logger,
-  ) {
-    super();
-    this.formatter = formatter;
-    this.instance = implementation || new WinstonAdapter(formatter);
+  constructor(@inject(SYMBOLS.Formatter) formatter: LogFormatter) {
+    this.implementation = new WinstonAdapter(formatter);
   }
 
-  info(message: string, context?: any): void {
-    this.instance.info(message, context);
+  info(message: string, context?: LogContext): void {
+    this.implementation.info(message, context);
   }
 
-  warn(message: string, context?: any): void {
-    this.instance.warn(message, context);
+  warn(message: string, context?: LogContext): void {
+    this.implementation.warn(message, context);
   }
 
-  error(message: string, context?: any): void {
-    this.instance.error(message, context);
-  }
-
-  public static create(): Logger {
-    try {
-      return container.get<Logger>(SYMBOLS.Logger);
-    } catch (error) {
-      const formatter = new ColoredFormatter();
-      return new LoggerFacade(formatter, new WinstonAdapter(formatter));
-    }
+  error(message: string, context?: LogContext): void {
+    this.implementation.error(message, context);
   }
 }

@@ -1,2 +1,2 @@
-export { container, createContainer } from './container';
+export { createContainer } from './container';
 export { SYMBOLS } from './symbols';

@@ -1,3 +1,10 @@
-import 'reflect-metadata';
 export * from './exceptions';
-export { LoggerFacade, logger } from './logger';
+
+export {
+  createLogger,
+  LogLevel,
+  LoggerOptions,
+  FormatterOptions,
+} from './logger';
+
+export type { Logger } from './logger';

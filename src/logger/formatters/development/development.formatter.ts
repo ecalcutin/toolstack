@@ -2,10 +2,12 @@ import chalk from 'chalk';
 
 import { injectable, inject, optional } from 'inversify';
 
-import { LogFormatter, FormatterOptions, LogIcon, LogLevel } from '../../core';
 import { formatContext } from './context.formatter';
 import { formatStack } from './stack.formatter';
 import { SYMBOLS } from '../../di/symbols';
+import { FormatterOptions, LogFormatter, LogLevel } from '../../core';
+
+import { LogIcon } from './types/log-icon.enum';
 
 const LEVEL_FORMATTING: Record<
   LogLevel,
@@ -33,7 +35,7 @@ const LEVEL_FORMATTING: Record<
 };
 
 @injectable()
-export class ColoredFormatter implements LogFormatter {
+export class DevelopmentFormatter implements LogFormatter {
   private readonly options: FormatterOptions;
 
   constructor(
@@ -42,10 +44,8 @@ export class ColoredFormatter implements LogFormatter {
     options?: Partial<FormatterOptions>,
   ) {
     this.options = {
-      colorize: true,
       timestamp: true,
       maxStackFrames: 3,
-      includeContext: true,
       ...options,
     };
   }
@@ -56,11 +56,11 @@ export class ColoredFormatter implements LogFormatter {
     context?: Record<string, unknown>,
   ): string {
     const formatting = LEVEL_FORMATTING[level];
-    const timestamp = this.options.timestamp;
+    const timestamp = this.options.timestamp ? new Date() : '';
 
     let output = [
       `${chalk.gray(LogIcon.LogStart)} ${chalk.gray(timestamp)}`,
-      `${formatting.color(formatting.icon)} ${level.toUpperCase().padEnd(5)}`,
+      `${formatting.color(formatting.icon)} ${level.toUpperCase().padEnd(5)} ${message}`,
     ].join(' ');
 
     // Check for stack trace in context
@@ -75,7 +75,7 @@ export class ColoredFormatter implements LogFormatter {
       }
     }
 
-    if (context && this.options.includeContext) {
+    if (context) {
       output += formatContext(context);
     }
 

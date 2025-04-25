@@ -1,30 +1,39 @@
 import { inject, injectable, optional } from 'inversify';
+import { LogFormatter, Logger, LogLevel, LogContext } from '../../core';
 import {
-  LogFormatter,
-  Logger,
-  LogLevel,
+  LOG_LEVEL_MAP,
+  WinstonLogLevel,
+  WinstonAdapterOptions,
+} from './winston.types';
+import {
+  createLogger,
+  transports,
   Logger as WinstonLoggerInstance,
-} from '../../core';
-import { LOG_LEVEL_MAP, WinstonLogLevel } from './winston.types';
-import { createLogger, transports } from 'winston';
+} from 'winston';
 import { SYMBOLS } from '../../di/symbols';
 import { format } from 'winston';
 
+/**
+ * Winston implementation of the Logger interface
+ */
 @injectable()
-export class WinstonAdapter extends Logger {
+export class WinstonAdapter implements Logger {
   private readonly logger: WinstonLoggerInstance;
   private readonly formatter: LogFormatter;
 
   constructor(
     @inject(SYMBOLS.Formatter) formatter: LogFormatter,
-    @inject(SYMBOLS.LoggerOptions) @optional() options?: any,
+    @inject(SYMBOLS.LoggerOptions) @optional() options?: WinstonAdapterOptions,
   ) {
-    super();
-
     this.formatter = formatter;
+    const loggerOptions = options || {};
 
     this.logger = createLogger({
-      level: this.mapLogLevel(options.level || LogLevel.Info),
+      level: this.mapLogLevel(
+        loggerOptions.level
+          ? this.mapCustomLevel(loggerOptions.level)
+          : LogLevel.Info,
+      ),
       format: this.createWinstonFormat(),
       handleExceptions: true,
       handleRejections: true,
@@ -32,16 +41,16 @@ export class WinstonAdapter extends Logger {
     });
   }
 
-  info(message: string, context?: any): void {
-    this.logger.info(message, context);
+  info(message: string, context?: LogContext): void {
+    this.logger.info(message, { context });
   }
 
-  warn(message: string, context?: any): void {
-    this.logger.warn(message, context);
+  warn(message: string, context?: LogContext): void {
+    this.logger.warn(message, { context });
   }
 
-  error(message: string, context?: any): void {
-    this.logger.error(message, context);
+  error(message: string, context?: LogContext): void {
+    this.logger.error(message, { context });
   }
 
   private createWinstonFormat() {
@@ -52,7 +61,7 @@ export class WinstonAdapter extends Logger {
         const { timestamp, level, message, context, stack, ...rest } = info;
         const combinedContext = {
           ...(context || {}),
-          ...(Object.keys(rest).length > 0 ? rest : 0),
+          ...(Object.keys(rest).length > 0 ? rest : {}),
         };
 
         return this.formatter.format(
@@ -60,7 +69,7 @@ export class WinstonAdapter extends Logger {
           message as string,
           {
             ...combinedContext,
-            ...(stack ? { stack } : []),
+            ...(stack ? { stack } : {}),
           },
         );
       }),
@@ -75,6 +84,19 @@ export class WinstonAdapter extends Logger {
       [WinstonLogLevel.Debug]: LogLevel.Debug,
     };
     return reverseMap[winstonLevel.toLowerCase()] || LogLevel.Info;
+  }
+
+  private mapCustomLevel(level: WinstonLogLevel): LogLevel {
+    const reverseMap: Record<WinstonLogLevel, LogLevel> = {
+      [WinstonLogLevel.Error]: LogLevel.Error,
+      [WinstonLogLevel.Warn]: LogLevel.Warn,
+      [WinstonLogLevel.Info]: LogLevel.Info,
+      [WinstonLogLevel.Debug]: LogLevel.Debug,
+      // Map these extra Winston levels to our closest equivalents
+      [WinstonLogLevel.Verbose]: LogLevel.Debug,
+      [WinstonLogLevel.Silly]: LogLevel.Debug,
+    };
+    return reverseMap[level] || LogLevel.Info;
   }
 
   private mapLogLevel(level: LogLevel): string {

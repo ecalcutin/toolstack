@@ -1,11 +1,15 @@
-export { Logger } from './core';
+import { LoggerFactory } from './factory';
+import { Logger } from './core/interfaces/logger.interface';
+import { LogLevel, FormatterOptions, LoggerOptions } from './core/types';
 
-export type { LogLevel, LoggerOptions } from './core/logger.types';
+export { LogLevel };
+export type { Logger };
 
-export { formatError, extractErrorContext } from './utils';
+export type { FormatterOptions };
+export type { LoggerOptions };
 
-export { LoggerFacade } from './facade';
+export { LoggerFactory };
 
-import { LoggerFacade } from './facade';
-
-export const logger = LoggerFacade.create();
+export function createLogger(options?: Partial<LoggerOptions>): Logger {
+  return LoggerFactory.create(options);
+}

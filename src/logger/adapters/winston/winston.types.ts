@@ -1,5 +1,4 @@
-import { LogLevel as CoreLogLevel } from '../../core';
-
+import { LogLevel } from '../../core/types/log-level.enum';
 export enum WinstonLogLevel {
   Error = 'error',
   Warn = 'warn',
@@ -13,9 +12,9 @@ export interface WinstonAdapterOptions {
   readonly level?: WinstonLogLevel;
 }
 
-export const LOG_LEVEL_MAP: Record<CoreLogLevel, WinstonLogLevel> = {
-  [CoreLogLevel.Error]: WinstonLogLevel.Error,
-  [CoreLogLevel.Warn]: WinstonLogLevel.Warn,
-  [CoreLogLevel.Info]: WinstonLogLevel.Info,
-  [CoreLogLevel.Debug]: WinstonLogLevel.Debug,
+export const LOG_LEVEL_MAP: Record<LogLevel, WinstonLogLevel> = {
+  [LogLevel.Error]: WinstonLogLevel.Error,
+  [LogLevel.Warn]: WinstonLogLevel.Warn,
+  [LogLevel.Info]: WinstonLogLevel.Info,
+  [LogLevel.Debug]: WinstonLogLevel.Debug,
 };

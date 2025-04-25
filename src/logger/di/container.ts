@@ -1,50 +1,29 @@
 import { Container } from 'inversify';
 import { SYMBOLS } from './symbols';
-import { FormatterOptions, LogFormatter, Logger, LoggerOptions } from '../core';
-import { WinstonAdapter } from '../adapters';
+import { FormatterOptions, LoggerOptions, Logger, LogFormatter } from '../core';
 import { LoggerFacade } from '../facade';
-import { getConfig } from '../config';
-import { ColoredFormatter } from '../formatters';
+import { DevelopmentFormatter } from '../formatters';
 
-export interface ContainerOptions {
-  readonly environment?: 'development' | 'production' | 'test' | 'custom';
-  readonly loggerConfig?: Partial<LoggerOptions>;
-  readonly formatterOptions?: Partial<FormatterOptions>;
-}
-export function createContainer(options: ContainerOptions = {}): Container {
-  const {
-    environment = (process.env.NODE_ENV as
-      | 'development'
-      | 'production'
-      | 'test'
-      | 'custom') || 'development',
-    loggerConfig,
-    formatterOptions = {},
-  } = options;
+export function createContainer(options: LoggerOptions = {}): Container {
+  const { level, formatterOptions = {} } = options;
 
   const container = new Container();
 
-  const config = getConfig(environment, loggerConfig);
-
-  container.bind<LoggerOptions>(SYMBOLS.LoggerOptions).toConstantValue(config);
+  container
+    .bind<LoggerOptions>(SYMBOLS.LoggerOptions)
+    .toConstantValue({ level, formatterOptions });
 
   container.bind<FormatterOptions>(SYMBOLS.FormatterOptions).toConstantValue({
-    colorize: true,
     timestamp: true,
-    includeContext: true,
     ...formatterOptions,
   });
 
   container
     .bind<LogFormatter>(SYMBOLS.Formatter)
-    .to(ColoredFormatter)
+    .to(DevelopmentFormatter)
     .inSingletonScope();
 
-  container.bind<Logger>(SYMBOLS.LoggerImplementation).to(WinstonAdapter);
-
-  container.bind<Logger>(SYMBOLS.Logger).to(LoggerFacade);
+  container.bind<Logger>(SYMBOLS.Logger).to(LoggerFacade).inSingletonScope();
 
   return container;
 }
-
-export const container = createContainer();
