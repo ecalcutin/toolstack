@@ -3,6 +3,8 @@
     "strict": true,
     "esModuleInterop": true,
     "declaration": true,
+    "experimentalDecorators": true,
+    "emitDecoratorMetadata": true,
     "target": "ESNext",
     "module": "NodeNext",
     "moduleResolution": "nodenext",
