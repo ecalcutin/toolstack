@@ -1,9 +1,9 @@
 import { createLogger, transports, type Logger } from 'winston';
 
-import { BaseLogger } from '../../abstract/base-logger';
 import { Level } from '../common.interface';
 
 import { format } from './formatter';
+import { BaseLogger } from '../../base-logger.abstract';
 
 type LogContext = Record<string, unknown>;
 
