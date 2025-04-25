@@ -1,5 +1,5 @@
 import chalk from 'chalk';
-import { LogIcon } from '../../common.interface';
+import { LogIcon } from '../../core/formatter.types';
 
 const formatStackLine = (line: string): { icon: string; text: string } => {
   let cleaned = line
@@ -19,8 +19,7 @@ const formatStackLine = (line: string): { icon: string; text: string } => {
   };
 };
 
-export const formatStack = (stack: unknown): string => {
-  const MAX_STACK_FRAMES = 3;
+export const formatStack = (stack: unknown, maxStackFrames = 3): string => {
   const stackString = typeof stack === 'string' ? stack : String(stack);
   if (!stackString) return '';
 
@@ -29,15 +28,15 @@ export const formatStack = (stack: unknown): string => {
     `\n${chalk.gray('└─')}${LogIcon.Error} ${lines[0]}`,
   );
 
-  const visibleFrames = lines.slice(1, MAX_STACK_FRAMES).map((line, i) => {
+  const visibleFrames = lines.slice(1, maxStackFrames).map((line, i) => {
     const { icon, text } = formatStackLine(line);
     const arrow = i === 0 ? LogIcon.ArrowRight : LogIcon.ArrowSub;
     return `     ${chalk.gray(arrow)} ${icon} ${text}`;
   });
 
   let counter = '';
-  if (lines.length > MAX_STACK_FRAMES) {
-    const hiddenCount = lines.length - MAX_STACK_FRAMES;
+  if (lines.length > maxStackFrames) {
+    const hiddenCount = lines.length - maxStackFrames;
     counter = `     ${chalk.gray('└─')}${LogIcon.Refresh} (${hiddenCount} more ${hiddenCount === 1 ? 'frame' : 'frames'})`;
   }
 

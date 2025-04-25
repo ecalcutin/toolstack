@@ -1,0 +1,1 @@
+export { ColoredFormatter } from './colored';
