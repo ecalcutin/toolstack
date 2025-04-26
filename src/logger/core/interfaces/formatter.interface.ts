@@ -16,15 +16,4 @@ export interface LogFormatter {
     message: string,
     context?: Record<string, unknown>,
   ): string;
-
-  /**
-   * Formats an error into a structured object for logging
-   * @param error The error to format
-   * @param context Additional context to include
-   * @returns Structured error object
-   */
-  formatError(
-    error: unknown,
-    context?: Record<string, unknown>,
-  ): Record<string, unknown>;
 }

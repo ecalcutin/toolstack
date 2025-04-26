@@ -85,39 +85,4 @@ export class DevelopmentFormatter implements LogFormatter {
 
     return output;
   }
-
-  formatError(
-    error: unknown,
-    context?: Record<string, unknown>,
-  ): Record<string, unknown> {
-    if (error instanceof Error) {
-      return {
-        message: error.message,
-        name: error.name,
-        stack: error.stack,
-        cause: error.cause ? this.formatError(error.cause) : undefined,
-        ...context,
-      };
-    }
-
-    if (typeof error === 'string') {
-      return {
-        message: error,
-        ...context,
-      };
-    }
-
-    if (typeof error === 'object' && error !== null) {
-      return {
-        ...(error as Record<string, unknown>),
-        ...context,
-      };
-    }
-
-    return {
-      rawError: error,
-      type: typeof error,
-      ...context,
-    };
-  }
 }
