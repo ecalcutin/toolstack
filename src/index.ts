@@ -1,7 +1,7 @@
 export * from './exceptions';
 
 export {
-  createLogger,
+  LoggerFactory,
   LogLevel,
   LoggerOptions,
   FormatterOptions,

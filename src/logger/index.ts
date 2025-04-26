@@ -9,7 +9,3 @@ export type { FormatterOptions };
 export type { LoggerOptions };
 
 export { LoggerFactory };
-
-export function createLogger(options?: Partial<LoggerOptions>): Logger {
-  return LoggerFactory.create(options);
-}

@@ -15,7 +15,9 @@ const jestConfig: Config & JestConfigWithTsJest = {
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testPathIgnorePatterns: ['/node_modules/', '/dist/'],
-  verbose: true,
+  moduleNameMapper: {
+    '^chalk$': 'identity-obj-proxy',
+  },
 };
 
 export default jestConfig;
