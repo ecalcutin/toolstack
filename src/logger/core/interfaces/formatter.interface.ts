@@ -1,3 +1,4 @@
+import { LogContext } from '../types';
 import { LogLevel } from '../types/log-level.enum';
 
 /**
@@ -11,9 +12,5 @@ export interface LogFormatter {
    * @param context Optional context data to include
    * @returns Formatted log string
    */
-  format(
-    level: LogLevel,
-    message: string,
-    context?: Record<string, unknown>,
-  ): string;
+  format(level: LogLevel, message: string, context?: LogContext): string;
 }

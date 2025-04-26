@@ -1,11 +1,8 @@
 import chalk from 'chalk';
+import { type LogContext } from '../../core';
 
-export const formatContext = (context: unknown): string => {
-  if (!context || typeof context !== 'object' || Array.isArray(context))
-    return '';
-
+export const formatContext = (context: LogContext): string => {
   const entries = Object.entries(context);
-  if (entries.length === 0) return '';
 
   const maxKeyLength = Math.max(...entries.map(([key]) => key.length));
 

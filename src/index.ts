@@ -1,10 +1,5 @@
 export * from './exceptions';
 
-export {
-  LoggerFactory,
-  LogLevel,
-  LoggerOptions,
-  FormatterOptions,
-} from './logger';
+export { LoggerFactory, LogLevel, LoggerOptions } from './logger';
 
 export type { Logger } from './logger';

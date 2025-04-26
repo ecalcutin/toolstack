@@ -1,10 +1,4 @@
-import {
-  LogLevel,
-  LoggerFactory,
-  FormatterOptions,
-  LoggerOptions,
-  Logger,
-} from './index';
+import { LogLevel, LoggerFactory, LoggerOptions, Logger } from './index';
 
 describe('Logger index exports', () => {
   describe('Enums', () => {
@@ -26,14 +20,6 @@ describe('Logger index exports', () => {
       // Types cannot be directly tested at runtime, but we can verify
       // the TypeScript compiler accepts them by creating a type annotation
       const typeCheck = (logger: Logger): Logger => logger;
-      expect(typeCheck).toBeDefined();
-    });
-
-    it('should export FormatterOptions type', () => {
-      // Types cannot be directly tested at runtime, but we can verify
-      // the TypeScript compiler accepts them by creating a type annotation
-      const typeCheck = (options: FormatterOptions): FormatterOptions =>
-        options;
       expect(typeCheck).toBeDefined();
     });
 

@@ -1,11 +1,7 @@
 import { LoggerFactory } from './factory';
-import { Logger } from './core/interfaces/logger.interface';
-import { LogLevel, FormatterOptions, LoggerOptions } from './core/types';
+import { LogLevel, LoggerOptions, Logger } from './core';
 
-export { LogLevel };
 export type { Logger };
-
-export type { FormatterOptions };
 export type { LoggerOptions };
-
+export { LogLevel };
 export { LoggerFactory };

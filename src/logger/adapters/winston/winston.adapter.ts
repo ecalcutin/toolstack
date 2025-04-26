@@ -1,39 +1,30 @@
-import { inject, injectable, optional } from 'inversify';
-import { LogFormatter, Logger, LogLevel, LogContext } from '../../core';
 import {
-  LOG_LEVEL_MAP,
-  WinstonLogLevel,
-  WinstonAdapterOptions,
-} from './winston.types';
+  LogFormatter,
+  Logger,
+  LogLevel,
+  LogContext,
+  LoggerOptions,
+} from '../../core';
+
 import {
   createLogger,
   transports,
   Logger as WinstonLoggerInstance,
+  format,
 } from 'winston';
-import { SYMBOLS } from '../../di/symbols';
-import { format } from 'winston';
 
 /**
  * Winston implementation of the Logger interface
  */
-@injectable()
 export class WinstonAdapter implements Logger {
   private readonly logger: WinstonLoggerInstance;
-  private readonly formatter: LogFormatter;
 
   constructor(
-    @inject(SYMBOLS.Formatter) formatter: LogFormatter,
-    @inject(SYMBOLS.LoggerOptions) @optional() options?: WinstonAdapterOptions,
+    private readonly formatter: LogFormatter,
+    private readonly options: LoggerOptions,
   ) {
-    this.formatter = formatter;
-    const loggerOptions = options || {};
-
     this.logger = createLogger({
-      level: this.mapLogLevel(
-        loggerOptions.level
-          ? this.mapCustomLevel(loggerOptions.level)
-          : LogLevel.Info,
-      ),
+      level: this.options.level,
       format: this.createWinstonFormat(),
       handleExceptions: true,
       handleRejections: true,
@@ -64,42 +55,11 @@ export class WinstonAdapter implements Logger {
           ...(Object.keys(rest).length > 0 ? rest : {}),
         };
 
-        return this.formatter.format(
-          this.mapWinstonLevel(level),
-          message as string,
-          {
-            ...combinedContext,
-            ...(stack ? { stack } : {}),
-          },
-        );
+        return this.formatter.format(level as LogLevel, message as string, {
+          ...combinedContext,
+          ...(stack ? { stack } : {}),
+        });
       }),
     );
-  }
-
-  private mapWinstonLevel(winstonLevel: string): LogLevel {
-    const reverseMap: Record<string, LogLevel> = {
-      [WinstonLogLevel.Error]: LogLevel.Error,
-      [WinstonLogLevel.Warn]: LogLevel.Warn,
-      [WinstonLogLevel.Info]: LogLevel.Info,
-      [WinstonLogLevel.Debug]: LogLevel.Debug,
-    };
-    return reverseMap[winstonLevel.toLowerCase()] || LogLevel.Info;
-  }
-
-  private mapCustomLevel(level: WinstonLogLevel): LogLevel {
-    const reverseMap: Record<WinstonLogLevel, LogLevel> = {
-      [WinstonLogLevel.Error]: LogLevel.Error,
-      [WinstonLogLevel.Warn]: LogLevel.Warn,
-      [WinstonLogLevel.Info]: LogLevel.Info,
-      [WinstonLogLevel.Debug]: LogLevel.Debug,
-      // Map these extra Winston levels to our closest equivalents
-      [WinstonLogLevel.Verbose]: LogLevel.Debug,
-      [WinstonLogLevel.Silly]: LogLevel.Debug,
-    };
-    return reverseMap[level] || LogLevel.Info;
-  }
-
-  private mapLogLevel(level: LogLevel): string {
-    return LOG_LEVEL_MAP[level] || WinstonLogLevel.Info;
   }
 }
