@@ -23,7 +23,7 @@ export interface Logger {
    * @param message The message to log
    * @param context Optional metadata to include with the log
    */
-  error(message: string, context?: LogContext): void;
+  error(message: unknown, context?: LogContext): void;
 
   /**
    * Logs an debug message

@@ -16,7 +16,7 @@ export class DevelopmentFormatter implements LogFormatter {
 
   format(level: LogLevel, message: string, context?: LogContext): string {
     const formatting = LEVEL_FORMATTING[level];
-    const timestamp = new Date();
+    const timestamp = new Date().toISOString();
 
     let output = [
       `${chalk.gray(LogIcon.LogStart)} ${chalk.gray(timestamp)}`,

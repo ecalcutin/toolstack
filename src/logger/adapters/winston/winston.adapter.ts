@@ -33,40 +33,36 @@ export class WinstonAdapter implements Logger {
   }
 
   info(message: string, context?: LogContext): void {
-    this.logger.info(message, { context });
+    this.logger.info(message, context);
   }
 
   warn(message: string, context?: LogContext): void {
-    this.logger.warn(message, { context });
+    this.logger.warn(message, context);
   }
 
   error(message: string, context?: LogContext): void {
-    this.logger.error(message, { context });
+    this.logger.error(message, context);
   }
 
   debug(message: string, context?: LogContext): void {
-    this.logger.debug(message, { context });
+    this.logger.debug(message, context);
   }
 
   verbose(message: string, context?: LogContext): void {
-    this.logger.verbose(message, { context });
+    this.logger.verbose(message, context);
   }
 
   private createWinstonFormat() {
     return format.combine(
-      format.timestamp(),
       format.errors({ stack: true }),
       format.printf(info => {
-        const { level, message, context, stack, ...rest } = info;
-        const combinedContext = {
-          ...(context || {}),
-          ...(Object.keys(rest).length > 0 ? rest : {}),
-        };
+        const { level, message, ...context } = info;
 
-        return this.formatter.format(level as LogLevel, message as string, {
-          ...combinedContext,
-          ...(stack ? { stack } : {}),
-        });
+        return this.formatter.format(
+          level as LogLevel,
+          message as string,
+          context,
+        );
       }),
     );
   }

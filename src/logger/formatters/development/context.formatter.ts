@@ -5,6 +5,10 @@ import { LogContext } from '~/logger/core';
 export const formatContext = (context: LogContext): string => {
   const entries = Object.entries(context);
 
+  if (entries.length === 0) {
+    return '';
+  }
+
   const maxKeyLength = Math.max(...entries.map(([key]) => key.length));
 
   const rows = entries.map(([key, value]) => {
