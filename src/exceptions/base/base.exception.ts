@@ -1,7 +1,7 @@
 import { DEFAULT_ERROR_CODE } from '../constants/error-codes';
 import { DEFAULT_ERROR_MESSAGE } from '../constants/error-messages';
 
-import type { BaseExceptionOptions } from './base.interface';
+import type { BaseExceptionOptions, SerializedError } from './base.interface';
 
 export class BaseException<
   ContextType = unknown,
@@ -30,7 +30,7 @@ export class BaseException<
     }
   }
 
-  public toJSON(): Record<string, unknown> {
+  public toJSON(): SerializedError {
     return {
       name: this.name,
       code: this.code,

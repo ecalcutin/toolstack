@@ -26,3 +26,12 @@ export interface BaseExceptionOptions<
    */
   cause?: CauseType;
 }
+
+export interface SerializedError {
+  readonly name: string;
+  readonly code: string;
+  readonly message: string;
+  readonly stack?: string;
+  readonly cause?: unknown;
+  readonly context?: Record<string, unknown>;
+}
