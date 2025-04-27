@@ -1,14 +1,20 @@
-import type { BaseExceptionOptions } from './base.interface';
 import { DEFAULT_ERROR_CODE } from '../constants/error-codes';
 import { DEFAULT_ERROR_MESSAGE } from '../constants/error-messages';
 
+import type {
+  BaseExceptionOptions,
+  ErrorContext,
+  ErrorCause,
+  SerializedError,
+} from './base.interface';
+
 export class BaseException<
-  ContextType = unknown,
-  CauseType = unknown,
+  ContextType extends ErrorContext = ErrorContext,
+  CauseType extends ErrorCause = ErrorCause,
 > extends Error {
   public readonly code: string;
   public readonly context?: ContextType;
-  public readonly cause?: CauseType;
+  public readonly cause?: Error;
 
   constructor(
     options: BaseExceptionOptions<ContextType, CauseType> = {
@@ -29,23 +35,14 @@ export class BaseException<
     }
   }
 
-  public toJSON(): Record<string, unknown> {
+  public toJSON(): SerializedError {
     return {
       name: this.name,
       code: this.code,
       message: this.message,
       ...(this.context ? { context: this.context } : {}),
-      ...(this.cause ? { cause: this.formatCause() } : {}),
+      ...(this.cause ? { cause: this.cause } : {}),
+      ...(this.stack ? { stack: this.stack } : {}),
     };
-  }
-
-  private formatCause(): unknown {
-    if (this.cause instanceof Error) {
-      return {
-        name: this.cause.name,
-        message: this.cause.message,
-      };
-    }
-    return this.cause;
   }
 }

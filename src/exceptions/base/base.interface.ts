@@ -1,6 +1,9 @@
+export type ErrorContext = Record<string, unknown>;
+export type ErrorCause = Error;
+
 export interface BaseExceptionOptions<
-  ContextType = unknown,
-  CauseType = unknown,
+  ContextType extends ErrorContext = ErrorContext,
+  CauseType extends ErrorCause = ErrorCause,
 > {
   /**
    * Unique error code for programmatic handling
@@ -25,4 +28,13 @@ export interface BaseExceptionOptions<
    * (same as native Error's `cause` property)
    */
   cause?: CauseType;
+}
+
+export interface SerializedError {
+  readonly name: string;
+  readonly code: string;
+  readonly message: string;
+  readonly stack?: string;
+  readonly cause?: Error;
+  readonly context?: Record<string, unknown>;
 }
