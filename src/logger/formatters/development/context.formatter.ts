@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-import { type LogContext } from '../../core';
+import { LogContext } from '~/logger/core';
 
 export const formatContext = (context: LogContext): string => {
   const entries = Object.entries(context);

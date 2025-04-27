@@ -1,6 +1,6 @@
-import { WinstonAdapter } from '../adapters';
-import { Logger, LoggerOptions, LogLevel } from '../core';
-import { DevelopmentFormatter } from '../formatters';
+import { WinstonAdapter } from '~/logger/adapters';
+import { Logger, LoggerOptions, LogLevel } from '~/logger/core';
+import { DevelopmentFormatter } from '~/logger/formatters';
 
 /**
  * The LoggerFactory class serves as a factory for creating logger instances

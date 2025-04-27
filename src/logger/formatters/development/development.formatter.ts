@@ -1,6 +1,11 @@
 import chalk from 'chalk';
 
-import { LogContext, LogFormatter, LoggerOptions, LogLevel } from '../../core';
+import {
+  LogContext,
+  LogFormatter,
+  LoggerOptions,
+  LogLevel,
+} from '~/logger/core';
 
 import { LEVEL_FORMATTING, LogIcon } from './constants';
 import { formatContext } from './context.formatter';

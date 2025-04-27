@@ -15,6 +15,10 @@ const jestConfig: Config & JestConfigWithTsJest = {
   },
   testPathIgnorePatterns: ['/node_modules/', '/dist/'],
   transformIgnorePatterns: ['/node_modules/(?!(chalk)/)'],
+
+  moduleNameMapper: {
+    '^~/(.*)$': '<rootDir>/src/$1',
+  },
 };
 
 export default jestConfig;

@@ -1,15 +1,36 @@
 {
   "compilerOptions": {
+    // Type Checking
     "strict": true,
+    "noImplicitAny": true,
+    "strictNullChecks": true,
+    "noUncheckedIndexedAccess": true,
+
+    // Modules
+    "module": "Preserve",
+    "moduleResolution": "bundler",
     "esModuleInterop": true,
+
+    // Emit
     "declaration": true,
-    "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
+    "declarationMap": true,
+    "outDir": "dist/",
+    "skipLibCheck": true,
+    "stripInternal": true,
+
+    // Interop Constraints
+    "forceConsistentCasingInFileNames": true,
+    "isolatedModules": true,
+
+    // Language and Environment
     "target": "ESNext",
-    "module": "NodeNext",
-    "moduleResolution": "nodenext",
-    "rootDir": "src/",
-    "outDir": "dist/"
+    "lib": ["ESNext"],
+
+    // Paths
+    "rootDir": "./",
+    "paths": {
+      "~/*": ["./src/*"]
+    }
   },
   "include": ["src/**/*.ts"]
 }

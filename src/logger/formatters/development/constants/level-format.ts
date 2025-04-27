@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-import { LogLevel } from '../../../core';
+import { LogLevel } from '~/logger/core';
 
 import { LogIcon } from './log-icon';
 

@@ -11,7 +11,7 @@ import {
   LogLevel,
   LogContext,
   LoggerOptions,
-} from '../../core';
+} from '~/logger/core';
 
 /**
  * Winston implementation of the Logger interface
