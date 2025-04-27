@@ -28,7 +28,7 @@
   },
   "scripts": {
     "build": "tsup --config bundle.config.ts",
-    "dev": "tsup src/internal.test.ts --watch --silent --onSuccess 'node dist/internal.test.cjs'",
+    "dev": "tsup  src/internal.test.ts --format=esm --watch --silent --onSuccess 'node dist/internal.test.js'",
     "test": "jest",
     "test:debug": "jest --runInBand",
     "lint": "eslint --ext .ts ./src",
