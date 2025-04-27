@@ -1,11 +1,16 @@
 import { DEFAULT_ERROR_CODE } from '../constants/error-codes';
 import { DEFAULT_ERROR_MESSAGE } from '../constants/error-messages';
 
-import type { BaseExceptionOptions, SerializedError } from './base.interface';
+import type {
+  BaseExceptionOptions,
+  ErrorContext,
+  ErrorCause,
+  SerializedError,
+} from './base.interface';
 
 export class BaseException<
-  ContextType extends Record<string, unknown> = Record<string, unknown>,
-  CauseType extends Error = Error,
+  ContextType extends ErrorContext = ErrorContext,
+  CauseType extends ErrorCause = ErrorCause,
 > extends Error {
   public readonly code: string;
   public readonly context?: ContextType;

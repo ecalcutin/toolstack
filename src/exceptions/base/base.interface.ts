@@ -1,6 +1,9 @@
+export type ErrorContext = Record<string, unknown>;
+export type ErrorCause = Error;
+
 export interface BaseExceptionOptions<
-  ContextType extends Record<string, unknown> = Record<string, unknown>,
-  CauseType extends Error = Error,
+  ContextType extends ErrorContext = ErrorContext,
+  CauseType extends ErrorCause = ErrorCause,
 > {
   /**
    * Unique error code for programmatic handling

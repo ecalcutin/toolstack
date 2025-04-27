@@ -1,1 +1,1 @@
-export { BaseException } from './base';
+export { BaseException, type BaseExceptionOptions } from './base';
