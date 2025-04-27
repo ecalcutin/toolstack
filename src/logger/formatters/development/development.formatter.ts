@@ -1,10 +1,10 @@
 import chalk from 'chalk';
 
+import { LogContext, LogFormatter, LoggerOptions, LogLevel } from '../../core';
+
+import { LEVEL_FORMATTING, LogIcon } from './constants';
 import { formatContext } from './context.formatter';
 import { formatStack } from './stack.formatter';
-
-import { LogContext, LogFormatter, LoggerOptions, LogLevel } from '../../core';
-import { LEVEL_FORMATTING, LogIcon } from './constants';
 
 export class DevelopmentFormatter implements LogFormatter {
   constructor(private readonly options?: Partial<LoggerOptions>) {}
@@ -25,6 +25,7 @@ export class DevelopmentFormatter implements LogFormatter {
       if ('stack' in context) {
         stack = context.stack;
         // Create a new context without the stack to avoid duplicating it
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         const { stack: _, ...restContext } = context;
         context = Object.keys(restContext).length > 0 ? restContext : undefined;
       }

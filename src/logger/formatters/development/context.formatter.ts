@@ -1,4 +1,5 @@
 import chalk from 'chalk';
+
 import { type LogContext } from '../../core';
 
 export const formatContext = (context: LogContext): string => {

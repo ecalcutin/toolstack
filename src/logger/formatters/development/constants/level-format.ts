@@ -1,5 +1,7 @@
 import chalk from 'chalk';
+
 import { LogLevel } from '../../../core';
+
 import { LogIcon } from './log-icon';
 
 export const LEVEL_FORMATTING: Record<

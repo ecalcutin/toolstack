@@ -1,17 +1,17 @@
 import {
+  createLogger,
+  transports,
+  Logger as WinstonLoggerInstance,
+  format,
+} from 'winston';
+
+import {
   LogFormatter,
   Logger,
   LogLevel,
   LogContext,
   LoggerOptions,
 } from '../../core';
-
-import {
-  createLogger,
-  transports,
-  Logger as WinstonLoggerInstance,
-  format,
-} from 'winston';
 
 /**
  * Winston implementation of the Logger interface
@@ -49,7 +49,7 @@ export class WinstonAdapter implements Logger {
       format.timestamp(),
       format.errors({ stack: true }),
       format.printf(info => {
-        const { timestamp, level, message, context, stack, ...rest } = info;
+        const { level, message, context, stack, ...rest } = info;
         const combinedContext = {
           ...(context || {}),
           ...(Object.keys(rest).length > 0 ? rest : {}),
