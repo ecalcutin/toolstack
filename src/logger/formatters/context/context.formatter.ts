@@ -3,8 +3,9 @@ import chalk from 'chalk';
 import { LogContext } from '~/logger/core';
 
 export const formatContext = (context: LogContext): string => {
-  if (!context || typeof context !== 'object' || Array.isArray(context))
+  if (!context || typeof context !== 'object' || Array.isArray(context)) {
     return '';
+  }
 
   const entries = Object.entries(context);
   if (entries.length === 0) return '';
@@ -32,5 +33,5 @@ export const formatContext = (context: LogContext): string => {
     return `${chalk.gray('│')}  ${formattedKey}  ${formattedValue}`;
   });
 
-  return `\n${rows.join('\n')}`;
+  return `${rows.join('\n')}`;
 };
