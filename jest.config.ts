@@ -6,7 +6,7 @@ const jestConfig: Config & JestConfigWithTsJest = {
   testEnvironment: 'node',
   testMatch: ['**/*.spec.ts'],
   transform: {
-    '^.+\\.ts$': [
+    '^.+\\.(t|j)s$': [
       'ts-jest',
       {
         tsconfig: 'tsconfig.jest.json',
@@ -15,9 +15,7 @@ const jestConfig: Config & JestConfigWithTsJest = {
   },
   setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testPathIgnorePatterns: ['/node_modules/', '/dist/'],
-  moduleNameMapper: {
-    '^chalk$': 'identity-obj-proxy',
-  },
+  transformIgnorePatterns: ['/node_modules/(?!(chalk)/)'],
 };
 
 export default jestConfig;
