@@ -13,7 +13,6 @@ const jestConfig: Config & JestConfigWithTsJest = {
       },
     ],
   },
-  setupFilesAfterEnv: ['<rootDir>/jest.setup.ts'],
   testPathIgnorePatterns: ['/node_modules/', '/dist/'],
   transformIgnorePatterns: ['/node_modules/(?!(chalk)/)'],
 };
