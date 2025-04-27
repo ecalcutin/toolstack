@@ -1,2 +1,1 @@
-export type { Logger } from './logger.interface';
-export type { LogFormatter } from './formatter.interface';
+export type { Transport, LogContext } from './log-context.interface';

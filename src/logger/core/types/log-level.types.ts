@@ -1,3 +1,5 @@
+export type LogLevel = 'error' | 'warn' | 'info' | 'debug';
+
 export const LOG_LEVEL = {
   Error: 'error',
   Warn: 'warn',

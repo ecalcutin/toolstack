@@ -1,45 +1,66 @@
 import chalk from 'chalk';
 
-import { LogIcon } from './constants';
+import { LOG_ICONS, LOG_PARTS } from './constants';
 
-const formatStackLine = (line: string): { icon: string; text: string } => {
-  let cleaned = line
-    .trim()
-    .replace(/^at /, '')
-    .replace(/:(\d+):\d+/, ':$1');
-
-  cleaned = cleaned
-    .replace(process.cwd(), '~')
-    .replace(/node_modules\/([^/]+)\/.*?\/([^/]+)$/, '[$1]/$2');
-
-  const isProjectFile = cleaned.startsWith('~/');
-
-  return {
-    icon: isProjectFile ? LogIcon.File : LogIcon.Package,
-    text: cleaned,
-  };
+const isExternalModule = (line: string): boolean => {
+  return /node_modules/.test(line);
 };
 
-export const formatStack = (stack: unknown, maxStackFrames = 3): string => {
-  const stackString = typeof stack === 'string' ? stack : String(stack);
-  if (!stackString) return '';
+const isInternalModule = (line: string): boolean => {
+  return /node:internal/.test(line);
+};
 
-  const lines = stackString.split('\n');
+export const formatStack = (
+  stack: unknown,
+  maxStackFrames: number = 5,
+): string => {
+  if (typeof stack !== 'string') return '';
+  if (!stack) return '';
+
+  const lines = stack.split('\n');
+
   const errorLine = chalk.red(
-    `\n${chalk.gray('└─')}${LogIcon.Error} ${lines[0]}`,
+    `\n${chalk.gray('└─')}${LOG_ICONS.Error} ${lines[0]}`,
   );
 
   const visibleFrames = lines.slice(1, maxStackFrames).map((line, i) => {
     const { icon, text } = formatStackLine(line);
-    const arrow = i === 0 ? LogIcon.ArrowRight : LogIcon.ArrowSub;
-    return `     ${chalk.gray(arrow)} ${icon} ${text}`;
+    const arrow = i === 0 ? LOG_ICONS.ArrowRight : LOG_ICONS.ArrowSub;
+    return `     ${arrow} ${icon} ${text}`;
   });
 
   let counter = '';
+
   if (lines.length > maxStackFrames) {
     const hiddenCount = lines.length - maxStackFrames;
-    counter = `     ${chalk.gray('└─')}${LogIcon.Refresh} (${hiddenCount} more ${hiddenCount === 1 ? 'frame' : 'frames'})`;
+    counter = `     ${LOG_PARTS.CORNER_LINE}${LOG_ICONS.Refresh} (${hiddenCount} more ${hiddenCount === 1 ? 'frame' : 'frames'})`;
   }
 
-  return [errorLine, ...visibleFrames, counter].filter(Boolean).join('\n');
+  return [errorLine, ...visibleFrames, counter].join('\n');
+};
+
+const formatStackLine = (line: string): { icon: string; text: string } => {
+  const cleaned = line
+    .trim()
+    .replace(/^at /, '')
+    .replace(/:(\d+):\d+/, ':$1')
+    .replace(process.cwd(), '~');
+
+  if (isExternalModule(cleaned)) {
+    return {
+      icon: LOG_ICONS.Package,
+      text: cleaned.replace(/node_modules\/([^/]+)\/.*?\/([^/]+)$/, '[$1]/$2'),
+    };
+  }
+  if (isInternalModule(line)) {
+    return {
+      icon: LOG_ICONS.InternalPackage,
+      text: cleaned,
+    };
+  }
+
+  return {
+    icon: LOG_ICONS.File,
+    text: cleaned.replace(/file.*?~/, '~'),
+  };
 };

@@ -1,6 +1,6 @@
 import chalk from 'chalk';
 
-import { LOG_LEVEL } from '~/logger-v2/core';
+import { LOG_LEVEL } from '~/logger/core';
 
 export const LOG_ICONS = {
   Error: '⚡',

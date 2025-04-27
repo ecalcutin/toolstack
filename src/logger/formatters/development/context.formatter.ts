@@ -1,36 +1,31 @@
 import chalk from 'chalk';
 
-import { LogContext } from '~/logger/core';
+import { LOG_PARTS } from './constants';
 
-export const formatContext = (context: LogContext): string => {
-  if (!context || typeof context !== 'object' || Array.isArray(context))
-    return '';
-
+export const formatContext = (context: Record<string, unknown>): string => {
   const entries = Object.entries(context);
   if (entries.length === 0) return '';
 
   const maxKeyLength = Math.max(...entries.map(([key]) => key.length));
-
   const rows = entries.map(([key, value]) => {
-    const formattedKey = chalk.hex('#FF9F43')(key.padEnd(maxKeyLength));
+    const formattedKey = chalk.yellowBright(key.padEnd(maxKeyLength));
+    const formattedValue = colorizeValue(value);
 
-    let formattedValue: string;
-    switch (typeof value) {
-      case 'string':
-        formattedValue = chalk.green(value);
-        break;
-      case 'number':
-        formattedValue = chalk.cyan(value);
-        break;
-      case 'boolean':
-        formattedValue = chalk.magenta(value);
-        break;
-      default:
-        formattedValue = chalk.white(JSON.stringify(value));
-    }
-
-    return `${chalk.gray('│')}  ${formattedKey}  ${formattedValue}`;
+    return [LOG_PARTS.VERTICAL_LINE, formattedKey, formattedValue].join(' ');
   });
 
-  return `\n${rows.join('\n')}`;
+  return rows.join('\n');
+};
+
+const colorizeValue = (value: unknown): string => {
+  switch (typeof value) {
+    case 'string':
+      return chalk.green(value);
+    case 'number':
+      return chalk.cyan(value);
+    case 'boolean':
+      return chalk.magenta(value);
+    default:
+      return chalk.white(JSON.stringify(value));
+  }
 };
