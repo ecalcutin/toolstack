@@ -4,12 +4,12 @@ import { DEFAULT_ERROR_MESSAGE } from '../constants/error-messages';
 import type { BaseExceptionOptions, SerializedError } from './base.interface';
 
 export class BaseException<
-  ContextType = unknown,
-  CauseType = unknown,
+  ContextType extends Record<string, unknown>,
+  CauseType extends Error,
 > extends Error {
   public readonly code: string;
   public readonly context?: ContextType;
-  public readonly cause?: CauseType;
+  public readonly cause?: Error;
 
   constructor(
     options: BaseExceptionOptions<ContextType, CauseType> = {
