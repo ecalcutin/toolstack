@@ -1,6 +1,6 @@
 export interface BaseExceptionOptions<
-  ContextType extends Record<string, unknown>,
-  CauseType extends Error,
+  ContextType extends Record<string, unknown> = Record<string, unknown>,
+  CauseType extends Error = Error,
 > {
   /**
    * Unique error code for programmatic handling

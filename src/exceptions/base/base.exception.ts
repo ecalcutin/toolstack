@@ -4,8 +4,8 @@ import { DEFAULT_ERROR_MESSAGE } from '../constants/error-messages';
 import type { BaseExceptionOptions, SerializedError } from './base.interface';
 
 export class BaseException<
-  ContextType extends Record<string, unknown>,
-  CauseType extends Error,
+  ContextType extends Record<string, unknown> = Record<string, unknown>,
+  CauseType extends Error = Error,
 > extends Error {
   public readonly code: string;
   public readonly context?: ContextType;
