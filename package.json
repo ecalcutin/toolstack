@@ -1,6 +1,6 @@
 {
   "name": "toolstack",
-  "version": "1.3.7",
+  "version": "1.3.8",
   "description": "A toolkit for faster and safer development (logging, errors, HTTP client, mocks, and templates)",
   "files": [
     "dist"
