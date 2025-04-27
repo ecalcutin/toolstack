@@ -18,6 +18,7 @@
     "build": "tsc",
     "test": "jest",
     "lint": "eslint --ext .ts ./src",
+    "typecheck": "tsc --noEmit",
     "release": "npm run build && npm version patch && npm publish && git push --follow-tags",
     "release:minor": "npm run build && npm version minor && npm publish && git push --follow-tags",
     "release:major": "npm run build && npm version major && npm publish && git push --follow-tags",
@@ -45,9 +46,10 @@
     "winston": "^3.17.0"
   },
   "lint-staged": {
-    "*.{js,ts}": [
+    "*.ts": [
       "eslint --fix",
-      "prettier --write"
+      "prettier --write",
+      "npm run typecheck"
     ]
   }
 }
