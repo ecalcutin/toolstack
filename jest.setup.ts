@@ -3,9 +3,6 @@
  * This file is executed before running tests
  */
 
-// Import any required dependencies for your tests
-import 'reflect-metadata';
-
 // Global setup code
 beforeAll(() => {
   // Add any setup code that should run before all tests
