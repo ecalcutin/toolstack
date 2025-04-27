@@ -44,6 +44,14 @@ export class WinstonAdapter implements Logger {
     this.logger.error(message, { context });
   }
 
+  debug(message: string, context?: LogContext): void {
+    this.logger.debug(message, { context });
+  }
+
+  verbose(message: string, context?: LogContext): void {
+    this.logger.verbose(message, { context });
+  }
+
   private createWinstonFormat() {
     return format.combine(
       format.timestamp(),

@@ -24,4 +24,18 @@ export interface Logger {
    * @param context Optional metadata to include with the log
    */
   error(message: string, context?: LogContext): void;
+
+  /**
+   * Logs an debug message
+   * @param message The message to log
+   * @param context Optional metadata to include with the log
+   */
+  debug(message: string, context?: LogContext): void;
+
+  /**
+   * Logs an verbose message
+   * @param message The message to log
+   * @param context Optional metadata to include with the log
+   */
+  verbose(message: string, context?: LogContext): void;
 }
