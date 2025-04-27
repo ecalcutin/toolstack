@@ -36,17 +36,8 @@ export class BaseException<
       code: this.code,
       message: this.message,
       ...(this.context ? { context: this.context } : {}),
-      ...(this.cause ? { cause: this.formatCause() } : {}),
+      ...(this.cause ? { cause: this.cause } : {}),
+      ...(this.stack ? { stack: this.stack } : {}),
     };
-  }
-
-  private formatCause(): unknown {
-    if (this.cause instanceof Error) {
-      return {
-        name: this.cause.name,
-        message: this.cause.message,
-      };
-    }
-    return this.cause;
   }
 }
