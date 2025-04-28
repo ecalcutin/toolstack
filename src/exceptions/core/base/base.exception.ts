@@ -1,12 +1,11 @@
-import { DEFAULT_ERROR_CODE } from '../constants/error-codes';
-import { DEFAULT_ERROR_MESSAGE } from '../constants/error-messages';
-
 import type {
   BaseExceptionOptions,
   ErrorContext,
   ErrorCause,
   SerializedError,
 } from './base.interface';
+import { DEFAULT_ERROR_CODE } from './constants/error-codes';
+import { DEFAULT_ERROR_MESSAGE } from './constants/error-messages';
 
 export class BaseException<
   ContextType extends ErrorContext = ErrorContext,
