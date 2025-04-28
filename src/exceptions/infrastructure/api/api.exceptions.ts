@@ -1,7 +1,7 @@
-import { BaseException } from '~/exceptions/core';
+import { BaseException, type BaseExceptionOptions } from '~/exceptions/core';
 
 export class APIException extends BaseException {
-  constructor() {
-    super();
+  constructor(options?: BaseExceptionOptions) {
+    super(options);
   }
 }
