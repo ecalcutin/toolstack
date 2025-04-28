@@ -1,1 +1,1 @@
-export * from './queue/queue.errors';
+export * from './queue/queue.exceptions';
