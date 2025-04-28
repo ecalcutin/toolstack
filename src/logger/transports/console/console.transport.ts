@@ -1,7 +1,7 @@
-import { Formatter, LogContext, LogLevel, Transport } from '~/logger/core';
+import type { Transport, LogLevel, Format, LogContext } from '~/logger/core';
 
 export class ConsoleTransport implements Transport {
-  constructor(private readonly formatter: Formatter) {}
+  constructor(private readonly format: Format) {}
 
   public log(
     level: LogLevel,
@@ -11,7 +11,7 @@ export class ConsoleTransport implements Transport {
     },
   ): void {
     const method = this.getLogMethod(level);
-    const message = this.formatter.format(level, raw.message, raw.context);
+    const message = this.format(level, raw.message, raw.context);
     method(message);
   }
 

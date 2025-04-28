@@ -1,15 +1,8 @@
-import type { LogContext, Transport } from '~/logger/core';
-
-import { ColorizedFormatter } from '../formatters/colorized';
-import { ConsoleTransport } from '../transports';
-
+import type { LogContext, Transport } from './interfaces';
 import { LogLevel } from './types';
 
 export class Logger {
-  private transports: Transport[] = [];
-  constructor() {
-    this.transports.push(new ConsoleTransport(new ColorizedFormatter()));
-  }
+  constructor(private readonly transports: Transport[]) {}
 
   private log(level: LogLevel, message: string, context?: LogContext): void {
     this.transports.forEach(transport => {

@@ -1,1 +1,1 @@
-export { ColorizedFormatter } from './colorized.formatter';
+export { colorizedFormatter } from './colorized.formatter';
