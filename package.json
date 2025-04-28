@@ -55,8 +55,7 @@
   },
   "dependencies": {
     "chalk": "^5.4.1",
-    "toolstack": "^1.3.21",
-    "winston": "^3.17.0"
+    "toolstack": "^1.3.21"
   },
   "lint-staged": {
     "*.ts": [
