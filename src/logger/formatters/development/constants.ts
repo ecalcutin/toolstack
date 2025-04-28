@@ -1,5 +1,4 @@
-import chalk from 'chalk';
-
+import { ChalkStyler } from '~/logger/adapters';
 import { LOG_LEVEL } from '~/logger/core';
 
 export const LOG_ICONS = {
@@ -26,24 +25,24 @@ export const LEVEL_FORMATTING: Record<
 > = {
   [LOG_LEVEL.Error]: {
     icon: LOG_ICONS.Error,
-    colorize: chalk.redBright,
+    colorize: ChalkStyler.redBright,
   },
   [LOG_LEVEL.Warn]: {
     icon: LOG_ICONS.Warn,
-    colorize: chalk.yellowBright,
+    colorize: ChalkStyler.yellowBright,
   },
   [LOG_LEVEL.Info]: {
     icon: LOG_ICONS.Info,
-    colorize: chalk.greenBright,
+    colorize: ChalkStyler.greenBright,
   },
   [LOG_LEVEL.Debug]: {
     icon: LOG_ICONS.Default,
-    colorize: chalk.magentaBright,
+    colorize: ChalkStyler.magentaBright,
   },
 };
 
 export const LOG_PARTS = {
-  LOG_START: chalk.gray(LOG_ICONS.Square),
-  VERTICAL_LINE: chalk.gray('│'),
-  CORNER_LINE: chalk.gray('└─'),
+  LOG_START: ChalkStyler.gray(LOG_ICONS.Square),
+  VERTICAL_LINE: ChalkStyler.gray('│'),
+  CORNER_LINE: ChalkStyler.gray('└─'),
 };

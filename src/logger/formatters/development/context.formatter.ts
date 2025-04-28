@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+import { ChalkStyler } from '~/logger/adapters';
 
 import { LOG_PARTS } from './constants';
 
@@ -8,7 +8,7 @@ export const formatContext = (context: Record<string, unknown>): string => {
 
   const maxKeyLength = Math.max(...entries.map(([key]) => key.length));
   const rows = entries.map(([key, value]) => {
-    const formattedKey = chalk.yellowBright(key.padEnd(maxKeyLength));
+    const formattedKey = ChalkStyler.yellowBright(key.padEnd(maxKeyLength));
     const formattedValue = colorizeValue(value);
 
     return [LOG_PARTS.VERTICAL_LINE, formattedKey, formattedValue].join(' ');
@@ -20,12 +20,12 @@ export const formatContext = (context: Record<string, unknown>): string => {
 const colorizeValue = (value: unknown): string => {
   switch (typeof value) {
     case 'string':
-      return chalk.green(value);
+      return ChalkStyler.green(value);
     case 'number':
-      return chalk.cyan(value);
+      return ChalkStyler.cyan(value);
     case 'boolean':
-      return chalk.magenta(value);
+      return ChalkStyler.magenta(value);
     default:
-      return chalk.white(JSON.stringify(value));
+      return ChalkStyler.white(JSON.stringify(value));
   }
 };

@@ -1,4 +1,4 @@
-import chalk from 'chalk';
+import { ChalkStyler } from '~/logger/adapters';
 
 import { LOG_ICONS, LOG_PARTS } from './constants';
 
@@ -19,8 +19,8 @@ export const formatStack = (
 
   const lines = stack.split('\n');
 
-  const errorLine = chalk.red(
-    `\n${chalk.gray('└─')}${LOG_ICONS.Error} ${lines[0]}`,
+  const errorLine = ChalkStyler.red(
+    `\n${ChalkStyler.gray('└─')}${LOG_ICONS.Error} ${lines[0]}`,
   );
 
   const visibleFrames = lines.slice(1, maxStackFrames).map((line, i) => {
