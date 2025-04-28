@@ -39,6 +39,10 @@ export const LEVEL_FORMATTING: Record<
     icon: LOG_ICONS.Default,
     colorize: ChalkStyler.magentaBright,
   },
+  [LOG_LEVEL.Verbose]: {
+    icon: LOG_ICONS.Default,
+    colorize: ChalkStyler.cyanBright,
+  },
 };
 
 export const LOG_PARTS = {

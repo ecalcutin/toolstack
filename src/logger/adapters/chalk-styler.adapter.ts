@@ -9,6 +9,7 @@ class ChalkStyler implements TextStyler {
   public readonly red = chalk.red;
   public readonly magenta = chalk.magenta;
   public readonly white = chalk.white;
+  public readonly cyanBright = chalk.cyanBright;
   public readonly greenBright = chalk.greenBright;
   public readonly magentaBright = chalk.magentaBright;
   public readonly redBright = chalk.redBright;
