@@ -1,2 +1,1 @@
-export { LogLevel, type LoggerOptions, type Logger } from './core';
-export { LoggerFactory } from './factory';
+export * from './logger-factory';

@@ -1,16 +1,9 @@
-import { LogContext } from '../types';
-import { LogLevel } from '../types/log-level.enum';
+import { LogLevel } from '../types';
 
-/**
- * Interface for log formatters that transform log entries into formatted strings
- */
-export interface LogFormatter {
-  /**
-   * Formats a log message with level and context
-   * @param level The log level
-   * @param message The message to format
-   * @param context Optional context data to include
-   * @returns Formatted log string
-   */
-  format(level: LogLevel, message: string, context?: LogContext): string;
-}
+import { LogContext } from './log-context.interface';
+
+export type Format = (
+  level: LogLevel,
+  message: string,
+  context?: LogContext,
+) => string;

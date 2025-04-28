@@ -1,1 +1,3 @@
-export { WinstonAdapter } from './winston/winston.adapter';
+import { default as ChalkStyler } from './chalk-styler.adapter';
+
+export { ChalkStyler };

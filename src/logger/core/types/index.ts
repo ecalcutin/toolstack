@@ -1,3 +1,1 @@
-// Re-export all types
-export { LogLevel } from './log-level.enum';
-export type { LogContext, LoggerOptions } from './logger.types';
+export { LOG_LEVEL, type LogLevel } from './log-level.types';
