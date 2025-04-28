@@ -1,6 +1,6 @@
 import type { LogContext, Transport } from '~/logger/core';
 
-import { developmentFormatter } from '../formatters/development';
+import { DevelopmentFormatter } from '../formatters/development';
 import { ConsoleTransport } from '../transports';
 
 import { LogLevel } from './types';
@@ -8,12 +8,12 @@ import { LogLevel } from './types';
 export class Logger {
   private transports: Transport[] = [];
   constructor() {
-    this.transports.push(new ConsoleTransport(developmentFormatter));
+    this.transports.push(new ConsoleTransport(new DevelopmentFormatter()));
   }
 
   private log(level: LogLevel, message: string, context?: LogContext): void {
     this.transports.forEach(transport => {
-      transport.log(level, message, context);
+      transport.log(level, { message, context });
     });
   }
 

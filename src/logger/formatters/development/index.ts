@@ -1,1 +1,1 @@
-export { developmentFormatter } from './development.formatter';
+export { DevelopmentFormatter } from './development.formatter';

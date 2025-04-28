@@ -36,7 +36,7 @@ export const formatStack = (
     counter = `     ${LOG_PARTS.CORNER_LINE}${LOG_ICONS.Refresh} (${hiddenCount} more ${hiddenCount === 1 ? 'frame' : 'frames'})`;
   }
 
-  return [errorLine, ...visibleFrames, counter].join('\n');
+  return [errorLine, ...visibleFrames, counter].filter(Boolean).join('\n');
 };
 
 const formatStackLine = (line: string): { icon: string; text: string } => {
