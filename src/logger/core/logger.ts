@@ -1,3 +1,6 @@
+import { BaseException } from '~/exceptions';
+import { SerializedError } from '~/exceptions/core/base/base.interface';
+
 import type { LogContext, Transport } from './interfaces';
 import { LogLevel } from './types';
 
@@ -10,8 +13,13 @@ export class Logger {
     });
   }
 
-  public error(message: string, context?: LogContext): void {
-    this.log('error', message, context);
+  public error(error: unknown, context?: LogContext): void {
+    const { message, ...serializedContext } = this.serializeError(
+      error,
+      context,
+    );
+
+    this.log('error', message, serializedContext);
   }
 
   public warn(message: string, context?: LogContext): void {
@@ -28,5 +36,42 @@ export class Logger {
 
   public verbose(message: string, context?: LogContext): void {
     this.log('verbose', message, context);
+  }
+
+  private serializeError(
+    error: unknown,
+    context?: LogContext,
+  ): SerializedError {
+    if (error instanceof BaseException) {
+      const { context: errorContext, ...rest } = error.toJSON();
+
+      return {
+        ...rest,
+        ...errorContext,
+        ...context,
+      };
+    }
+
+    if (error instanceof Error) {
+      return {
+        name: error.name || 'Unknown error',
+        message: error.message || 'Unknown error occurred',
+        code: 'UNKNOWN_CODE',
+        stack: error.stack,
+        ...(error.cause ? { cause: error.cause as Error } : {}),
+        ...context,
+      };
+    }
+
+    return {
+      name: 'Unknown error',
+      message: 'Unknown error occurred',
+      code: 'UNKNOWN_CODE',
+      context: {
+        ...context,
+        errorType: typeof error,
+        errorString: String(error),
+      },
+    };
   }
 }

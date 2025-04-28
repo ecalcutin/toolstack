@@ -14,7 +14,7 @@ export const formatContext = (context: Record<string, unknown>): string => {
     return [LOG_PARTS.VERTICAL_LINE, formattedKey, formattedValue].join(' ');
   });
 
-  return ['', rows].join('\n');
+  return ['', ...rows].join('\n');
 };
 
 const colorizeValue = (value: unknown): string => {
