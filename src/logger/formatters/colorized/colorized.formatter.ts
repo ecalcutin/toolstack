@@ -4,7 +4,7 @@ import { LEVEL_FORMATTING, LOG_PARTS } from './constants';
 import { formatContext } from './context.formatter';
 import { formatStack } from './stack.formatter';
 
-export class DevelopmentFormatter implements Formatter {
+export class ColorizedFormatter implements Formatter {
   public format(
     level: LogLevel,
     message: string,
