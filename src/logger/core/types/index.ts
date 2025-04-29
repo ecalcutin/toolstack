@@ -1,1 +1,5 @@
-export { LOG_LEVEL, type LogLevel } from './log-level.types';
+export {
+  type LogLevel,
+  LOG_LEVEL,
+  LOG_LEVEL_PRIORITY,
+} from './log-level.types';

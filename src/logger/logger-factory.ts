@@ -7,7 +7,8 @@ export { type LoggerOptions };
 export function createLogger(options: LoggerOptions = {}): Logger {
   const {
     transports = [new ConsoleTransport(options.format || colorizedFormatter)],
+    level = 'info',
   } = options;
 
-  return new Logger(transports);
+  return new Logger(level, transports);
 }

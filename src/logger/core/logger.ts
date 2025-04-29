@@ -2,15 +2,20 @@ import { BaseException } from '~/exceptions';
 import { SerializedError } from '~/exceptions/core/base/base.interface';
 
 import type { LogContext, Transport } from './interfaces';
-import { LogLevel } from './types';
+import { type LogLevel, LOG_LEVEL_PRIORITY } from './types';
 
 export class Logger {
-  constructor(private readonly transports: Transport[]) {}
+  constructor(
+    private readonly level: LogLevel,
+    private readonly transports: Transport[],
+  ) {}
 
   private log(level: LogLevel, message: string, context?: LogContext): void {
-    this.transports.forEach(transport => {
-      transport.log(level, { message, context });
-    });
+    if (LOG_LEVEL_PRIORITY[level] >= LOG_LEVEL_PRIORITY[this.level]) {
+      this.transports.forEach(transport => {
+        transport.log(level, { message, context });
+      });
+    }
   }
 
   public error(error: unknown, context?: LogContext): void {

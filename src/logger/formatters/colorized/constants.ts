@@ -1,26 +1,25 @@
 import { ChalkStyler } from '~/logger/adapters';
-import { LOG_LEVEL } from '~/logger/core';
+import { LOG_LEVEL, type LogLevel } from '~/logger/core';
 
-export const LOG_ICONS = {
-  Error: '⚡',
-  Warn: '⚠️',
-  Fatal: '✖',
-  Info: 'ℹ️',
-  Default: 'ℹ️',
-  Square: '◼',
-  Refresh: '🔄',
-  File: '📄',
-  Package: '📦',
-  ArrowRight: '→',
-  ArrowSub: '⇢',
-  InternalPackage: '⚙️',
-} as const;
+export enum LOG_ICONS {
+  Error = '⚡',
+  Warn = '⚠️',
+  Fatal = '✖',
+  Info = 'ℹ️',
+  Square = '◼',
+  Refresh = '🔄',
+  File = '📄',
+  Package = '📦',
+  ArrowRight = '→',
+  ArrowSub = '⇢',
+  InternalPackage = '⚙️',
+}
 
 export const LEVEL_FORMATTING: Record<
-  (typeof LOG_LEVEL)[keyof typeof LOG_LEVEL],
+  LogLevel,
   {
     colorize: (text: string) => string;
-    icon: (typeof LOG_ICONS)[keyof typeof LOG_ICONS];
+    icon: LOG_ICONS;
   }
 > = {
   [LOG_LEVEL.Error]: {
@@ -36,11 +35,11 @@ export const LEVEL_FORMATTING: Record<
     colorize: ChalkStyler.greenBright,
   },
   [LOG_LEVEL.Debug]: {
-    icon: LOG_ICONS.Default,
+    icon: LOG_ICONS.Info,
     colorize: ChalkStyler.magentaBright,
   },
   [LOG_LEVEL.Verbose]: {
-    icon: LOG_ICONS.Default,
+    icon: LOG_ICONS.Info,
     colorize: ChalkStyler.cyanBright,
   },
 };
